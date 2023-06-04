@@ -14,6 +14,7 @@
     <!-- Scripts -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
     <script defer src="https://cdn.jsdelivr.net/npm/alpinejs@3.x.x/dist/cdn.min.js"></script>
+    <livewire:styles />
 </head>
 <body class="font-sans antialiased">
 <header class="flex items-center justify-between px-8 py-4">
@@ -120,5 +121,6 @@
         </div>
     </div>
 </main>
+<livewire:scripts />
 </body>
 </html>

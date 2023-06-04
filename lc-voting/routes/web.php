@@ -2,7 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use Illuminate\Support\Facades\Route;
-
+use App\Http\Controllers\IdeaController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -14,10 +14,11 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('index');
-});
-Route::view('/idea','show');//Route::get('/dashboard', function () {
+
+Route::get('/',[IdeaController::class,'index'])->name('idea.index');
+Route::get('/idea/{idea:slug}',[IdeaController::class,'show'])->name('idea.show');
+//Route::view('/idea','show');
+//Route::get('/dashboard', function () {
 //    return view('dashboard');
 //})->middleware(['auth', 'verified'])->name('dashboard');
 //
