@@ -8,19 +8,27 @@ use Illuminate\Database\Eloquent\Model;
 
 class Idea extends Model
 {
-    use HasFactory,Sluggable;
+    use HasFactory, Sluggable;
+
     protected $guarded = [];
-    public function user(){
+
+    public function user()
+    {
         return $this->belongsTo(User::class);
+    }
+
+    public function category()
+    {
+        return $this->belongsTo(Category::class);
     }
 
     public function sluggable(): array
     {
         // TODO: Implement sluggable() method.
         return [
-           'slug'=>[
-               'source' => 'title'
-           ]
-        ] ;
+            'slug' => [
+                'source' => 'title'
+            ]
+        ];
     }
 }
