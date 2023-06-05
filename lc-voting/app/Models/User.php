@@ -49,6 +49,16 @@ class User extends Authenticatable
 
     public function getAvatar()
     {
-        return "https://gravatar.com/avatar/".md5($this->email)."?d=mp&s=200";
+        $firstChar = $this->email[0];
+        if (is_numeric($firstChar)):
+            $picNumber = ord(strtolower($firstChar)) - 21;
+        else:
+            $picNumber = ord(strtolower($firstChar))-96;
+        endif;
+        $randomInt = rand(1, 36);
+//        return "https://gravatar.com/avatar/".md5($this->email)."?d=mp&s=200";
+        return "https://gravatar.com/avatar/" . md5($this->email) .
+            "?d=https://i0.wp.com/s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-{$picNumber}.png"
+            . "&s=200";
     }
 }
