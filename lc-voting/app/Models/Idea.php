@@ -22,6 +22,24 @@ class Idea extends Model
         return $this->belongsTo(Category::class);
     }
 
+    public function status()
+    {
+        return $this->belongsTo(Status::class);
+
+    }
+
+    public function getClassesName()
+    {
+        $allClasses = [
+            "Open" => 'bg-gray-200',
+            "Considering" => 'bg-purple text-white',
+            "In Progress" => 'bg-yellow text-white',
+            "implemented" => 'bg-green text-white',
+            "Closed" => 'bg-red text-white',
+        ];
+        return $allClasses[$this->status->name];
+    }
+
     public function sluggable(): array
     {
         // TODO: Implement sluggable() method.
