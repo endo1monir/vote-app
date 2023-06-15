@@ -6,6 +6,8 @@ namespace Database\Seeders;
 use App\Models\Category;
 use App\Models\Idea;
 use App\Models\Status;
+use App\Models\User;
+use App\Models\Vote;
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -19,13 +21,23 @@ class DatabaseSeeder extends Seeder
     {
         // \App\Models\User::factory(10)->create();
         Category::factory(4)->create();
-
-        Status::factory()->create(["name" => "Open",'classes'=>'bg-gray-200']);
-        Status::factory()->create(["name" => "Considering",'classes'=>'bg-purple text-white']);
-        Status::factory()->create(["name" => "In Progress",'classes'=>'bg-yellow text-white']);
-        Status::factory()->create(["name" => "implemented",'classes'=>'bg-green text-white']);
-        Status::factory()->create(["name" => "Closed",'classes'=>'bg-red text-white']);
-        Idea::factory(30)->create();
+        User::factory(20)->create();
+        Status::factory()->create(["name" => "Open", 'classes' => 'bg-gray-200']);
+        Status::factory()->create(["name" => "Considering", 'classes' => 'bg-purple text-white']);
+        Status::factory()->create(["name" => "In Progress", 'classes' => 'bg-yellow text-white']);
+        Status::factory()->create(["name" => "implemented", 'classes' => 'bg-green text-white']);
+        Status::factory()->create(["name" => "Closed", 'classes' => 'bg-red text-white']);
+        Idea::factory(100)->create();
+        foreach (range(1, 20) as $user_id) {
+            foreach (range(1, 100) as $idea_id) {
+                if ($idea_id % 2 == 0) {
+                    Vote::factory()->create([
+                        'user_id' => $user_id,
+                        'idea_id' => $idea_id,
+                    ]);
+                }
+            }
+        }
         // \App\Models\User::factory()->create([
         //     'name' => 'Test User',
         //     'email' => 'test@example.com',

@@ -47,13 +47,18 @@ class User extends Authenticatable
         return $this->hasMany(Idea::class);
     }
 
+    public function votes()
+    {
+        return $this->belongsToMany(Idea::class,'votes');
+    }
+
     public function getAvatar()
     {
         $firstChar = $this->email[0];
         if (is_numeric($firstChar)):
             $picNumber = ord(strtolower($firstChar)) - 21;
         else:
-            $picNumber = ord(strtolower($firstChar))-96;
+            $picNumber = ord(strtolower($firstChar)) - 96;
         endif;
         $randomInt = rand(1, 36);
 //        return "https://gravatar.com/avatar/".md5($this->email)."?d=mp&s=200";

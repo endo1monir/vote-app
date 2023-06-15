@@ -28,6 +28,11 @@ class Idea extends Model
 
     }
 
+    public function votes()
+    {
+        return $this->belongsToMany(User::class,'votes');
+    }
+
     public function getClassesName()
     {
         $allClasses = [
