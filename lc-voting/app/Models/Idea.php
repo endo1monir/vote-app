@@ -30,7 +30,31 @@ class Idea extends Model
 
     public function votes()
     {
-        return $this->belongsToMany(User::class,'votes');
+        return $this->belongsToMany(User::class, 'votes');
+    }
+
+    public function isVotedByUser(?User $user)
+    {
+        if (!$user):
+            return false;
+        endif;
+        return $this->votes()->where('user_id', $user->id)
+            ->where('idea_id', $this->id)->
+            exists();
+    }
+
+    public function vote(User $user)
+    {
+        Vote::create([
+            'user_id' => $user->id,
+            'idea_id' => $this->id,
+        ]);
+    }
+
+    public function removeVote(User $user)
+    {
+        Vote::where('user_id', $user->id)
+            ->where('idea_id', $this->id)->first()->delete();
     }
 
     public function getClassesName()

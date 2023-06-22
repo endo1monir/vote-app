@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreIdeaRequest;
 use App\Http\Requests\UpdateIdeaRequest;
 use App\Models\Idea;
+use App\Models\Vote;
 
 class IdeaController extends Controller
 {
@@ -16,7 +17,13 @@ class IdeaController extends Controller
     public function index()
     {
         return view('ideas.index', [
-            'Ideas' => Idea::with(['user','category','status'])->orderBy('id','desc')->simplePaginate(10)
+            'Ideas' => Idea::with(['user','category','status'])
+                ->addSelect(['voted_by_user'=>Vote::select('id')
+                ->where('user_id',auth()->check()?auth()->user()->id:'')
+                    ->whereColumn('idea_id','ideas.id')
+                ])
+                ->withCount('votes')
+                ->orderBy('id','desc')->simplePaginate(10)
         ]);
     }
 
