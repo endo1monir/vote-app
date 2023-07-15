@@ -16,6 +16,7 @@ class IdeaController extends Controller
      */
     public function index()
     {
+
         return view('ideas.index', [
             'Ideas' => Idea::with(['user','category','status'])
                 ->addSelect(['voted_by_user'=>Vote::select('id')
