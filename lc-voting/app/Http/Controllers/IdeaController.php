@@ -6,6 +6,7 @@ use App\Http\Requests\StoreIdeaRequest;
 use App\Http\Requests\UpdateIdeaRequest;
 use App\Models\Idea;
 use App\Models\Vote;
+use http\Url;
 
 class IdeaController extends Controller
 {
@@ -57,7 +58,9 @@ class IdeaController extends Controller
      */
     public function show(Idea $idea)
     {
-        return view('ideas.show',['idea' => $idea,'votesCounts'=>$idea->votes()->count()]);
+        return view('ideas.show',['idea' => $idea,'votesCounts'=>$idea->votes()->count(),
+            'backUrl'=>\url()->previous()  !== \url()->full() ? \url()->previous() : route('idea.index')
+            ]);
     }
 
     /**
