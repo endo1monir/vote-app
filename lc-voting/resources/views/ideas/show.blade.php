@@ -8,8 +8,7 @@
             <span class="ml-2">All ideas</span>
         </a>
     </div>
-    @dump(url()->full())
-    @dump(url()->previous())
+
 <livewire:idea-show :idea="$idea" :votesCounts="$votesCounts" />
 
 

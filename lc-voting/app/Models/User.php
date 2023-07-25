@@ -49,7 +49,7 @@ class User extends Authenticatable
 
     public function votes()
     {
-        return $this->belongsToMany(Idea::class,'votes');
+        return $this->belongsToMany(Idea::class, 'votes');
     }
 
     public function getAvatar()
@@ -65,5 +65,12 @@ class User extends Authenticatable
         return "https://gravatar.com/avatar/" . md5($this->email) .
             "?d=https://i0.wp.com/s3.amazonaws.com/laracasts/images/forum/avatars/default-avatar-{$picNumber}.png"
             . "&s=200";
+    }
+
+    public function isAdmin()
+    {
+        return in_array($this->email, [
+            'ande@ande.com'
+        ]);
     }
 }
