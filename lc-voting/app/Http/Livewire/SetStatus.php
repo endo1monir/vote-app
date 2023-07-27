@@ -10,6 +10,7 @@ class SetStatus extends Component
 {
     public $idea;
     public $status;
+    public $notifyAllVoters;
 
     public function mount($idea)
     {
@@ -19,13 +20,22 @@ class SetStatus extends Component
 
     public function setStatus()
     {
-        if (!auth()->check() || !auth()->user()->isAdmin())
-        {
+        if (!auth()->check() || !auth()->user()->isAdmin()) {
             abort(Response::HTTP_FORBIDDEN);
         }
-        $this->idea->status_id=$this->status;
+        $this->idea->status_id = $this->status;
         $this->idea->save(); //save the idea
+        if ($this->notifyAllVoters)
+            $this->notifyAllVoters();
         $this->emit('statusWasUpdated');
+    }
+
+    public function notifyAllVoters()
+    {
+        $voters=$this->idea->votes()->select(
+            'name','email'
+        )->get()->first()->name;
+        dd($voters);
     }
 
     public function render()
