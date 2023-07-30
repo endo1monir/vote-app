@@ -20,10 +20,12 @@ class IdeaStatusUpdatedMailable extends Mailable
      * @return void
      */
     public $idea;
+    public $url;
     public function __construct(Idea $idea)
     {
         //
         $this->idea=$idea;
+        $this->url=route('idea.show',$idea);
     }
 
     /**

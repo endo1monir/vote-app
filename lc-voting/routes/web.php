@@ -17,6 +17,9 @@ use App\Http\Controllers\IdeaController;
 
 Route::get('/',[IdeaController::class,'index'])->name('idea.index');
 Route::get('/idea/{idea:slug}',[IdeaController::class,'show'])->name('idea.show');
+Route::get('testmail',function (){
+    return view('testmail');
+});
 //Route::view('/idea','show');
 //Route::get('/dashboard', function () {
 //    return view('dashboard');
