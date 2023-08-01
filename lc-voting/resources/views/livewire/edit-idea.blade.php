@@ -25,7 +25,11 @@
         From: "opacity-100 translate-y-0 sm:scale-100"
         To: "opacity-0 translate-y-4 sm:translate-y-0 sm:scale-95"
     -->
-        <div x-show="isOpen" x-transition:enter.duration.500ms.scale.origin.top
+        <div
+            x-init="window.livewire.on('ideaWasUpdated',()=>{
+            isOpen=false
+            })"
+            x-show="isOpen" x-transition:enter.duration.500ms.scale.origin.top
              class="modal bg-white rounded-tl-xl rounded-tr-xl overflow-hidden transform transition-all py-4 sm:max-w-lg sm:w-full">
             <div class="absolute top-0 right-0 pt-4 pr-4">
                 <button @click="isOpen=false" class="text-gray-400 hover:text-gray-500">
@@ -44,7 +48,7 @@
                     <div>
                         <input wire:model.defer="title" type="text"
                                class="w-full text-sm bg-gray-100 border-none rounded-xl placeholder-gray-900 px-4 py-2"
-                               placeholder="Your Idea" required>
+                               placeholder="Your Idea" >
                         @error('title')
                         <p class="text-red text-xs mt-1">{{ $message }}</p>
                         @enderror

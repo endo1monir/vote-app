@@ -12,6 +12,12 @@ class EditIdea extends Component
     public $category;
     public $description;
 
+    protected $rules = [
+        'title' => 'required|string|between:3,255',
+        'category' => 'integer|exists:categories,id|required',
+        'description' => 'required|string'
+    ];
+
     public function mount($idea)
     {
         $this->idea = $idea;
@@ -22,11 +28,13 @@ class EditIdea extends Component
 
     public function updateIdea()
     {
+        $this->validate();
         $this->idea->update([
             'title' => $this->title,
             'category_id' => $this->category,
             'description' => $this->description,
         ]);
+        $this->emit('ideaWasUpdated');
     }
 
     public function render()
