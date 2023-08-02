@@ -39,14 +39,18 @@
                                 </svg>
                             </button>
                             <ul x-cloak x-show.transition.origin.top.left="isOpen" @keydown.escape.window="isOpen=false" @click.away="isOpen=false" class=" absolute w-44 text-left font-semibold bg-white shadow-dialog rounded-xl py-3 ml-8">
+
+                                @can('update',$idea)
                                 <li><a @click="
                                 isOpen=false
                                 $dispatch('custom-show-edit-modal')" href="#"
                                        class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Edit Idea</a></li>
+                                @endcan
                                 <li><a href="#"
                                        class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark as
                                         Spam</a></li>
-                                <li><a href="#"
+                                <li><a @click="isOpen=false
+                                $dispatch('custom-show-delete-modal')" href="#"
                                        class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete
                                         Post</a></li>
                             </ul>
