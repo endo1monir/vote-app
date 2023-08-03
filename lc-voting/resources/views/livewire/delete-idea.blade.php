@@ -8,7 +8,12 @@
     "
     x-show="isOpen"
     @keydown.escape.window="isOpen=false"
-    @custom-show-delete-modal.window="isOpen=true"
+    @custom-show-delete-modal.window="isOpen=true
+   $nextTick(()=>$refs.confirmButton.focus())
+    "
+    x-init="window.livewire.on('ideaWasDeleted',()=>{
+    isOpen=false
+    })"
     class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <!--
       Background backdrop, show/hide based on modal state.
@@ -58,11 +63,11 @@
                     </div>
                 </div>
                 <div class="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
-                    <button wire:click="deleteIdea" type="button"
+                    <button wire:click="deleteIdea" x-ref="confirmButton" type="button"
                             class="inline-flex w-full justify-center rounded-md bg-red px-3 py-2 text-sm font-semibold text-white shadow-sm hover:bg-red-500 sm:ml-3 sm:w-auto">
                         Delete
                     </button>
-                    <button type="button"
+                    <button @click="isOpen=false" type="button"
                             class="mt-3 inline-flex w-full justify-center rounded-md bg-white px-3 py-2 text-sm font-semibold text-gray-900 shadow-sm ring-1 ring-inset ring-gray-300 hover:bg-gray-50 sm:mt-0 sm:w-auto">
                         Cancel
                     </button>
