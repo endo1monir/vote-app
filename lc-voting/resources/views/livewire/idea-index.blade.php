@@ -17,11 +17,11 @@
 
         <div class="mt-8">
             @if($hasVoted)
-            <button
-                wire:click.prevent="vote"
-                class="bg-green text-white w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">
-                Voted
-            </button>
+                <button
+                    wire:click.prevent="vote"
+                    class="bg-green text-white w-20 bg-gray-200 border border-gray-200 hover:border-gray-400 font-bold text-xxs uppercase rounded-xl transition duration-150 ease-in px-4 py-3">
+                    Voted
+                </button>
             @else
                 <button
                     wire:click.prevent="vote"
@@ -43,6 +43,11 @@
                 <a href="{{route('idea.show',$idea)}}" class=" idea-link hover:underline">{{$idea->title}}</a>
             </h4>
             <div class="text-gray-600 mt-3 line-clamp-3">
+                @admin
+                @if($idea->spam_reports > 0)
+                    <p class="text-red"> Spam count : {{$idea->spam_reports}} </p>
+                @endif
+                @endadmin
                 {{$idea->description}}
             </div>
 
