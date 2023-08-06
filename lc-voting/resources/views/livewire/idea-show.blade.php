@@ -62,6 +62,12 @@
                                             as
                                             Spam</a></li>
                                 @endauth
+                                    @admin
+                                        <li><a @click="$dispatch('custom-show-not-spam-modal')" href="#"
+                                               class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark
+                                                as not
+                                                Spam</a></li>
+                                    @endadmin
                                 @can('delete',$idea)
                                     <li><a @click="isOpen=false
                                 $dispatch('custom-show-delete-modal')" href="#"

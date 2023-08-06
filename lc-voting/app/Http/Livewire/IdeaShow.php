@@ -10,7 +10,7 @@ class IdeaShow extends Component
     public $votesCounts;
     public $hasVoted;
     protected $listeners = [
-        'statusWasUpdated','ideaWasUpdated'
+        'statusWasUpdated', 'ideaWasUpdated', 'MarkedAsNotSpam'
     ];
 
     public function mount($idea, $votesCounts)
@@ -37,11 +37,16 @@ class IdeaShow extends Component
         }
     }
 
+    public function MarkedAsNotSpam()
+    {
+        $this->idea->refresh();
+    }
 
     public function statusWasUpdated()
     {
         $this->idea->refresh();
     }
+
     public function ideaWasUpdated()
     {
         $this->idea->refresh();
