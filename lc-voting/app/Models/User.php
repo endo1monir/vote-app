@@ -67,6 +67,11 @@ class User extends Authenticatable
             . "&s=200";
     }
 
+    public function comments()
+    {
+        return $this->hasMany(Comment::class);
+    }
+
     public function isAdmin()
     {
         return in_array($this->email, [

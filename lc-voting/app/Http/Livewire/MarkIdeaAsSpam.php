@@ -19,7 +19,7 @@ class MarkIdeaAsSpam extends Component
             abort(403);
         $this->idea->spam_reports++;
         $this->idea->save();
-        $this->emit('MarkedAsSpam');
+        $this->emit('MarkedAsSpam','idea marked as spam !');
     }
 
     public function render()

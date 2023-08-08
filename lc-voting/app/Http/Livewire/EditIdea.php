@@ -37,7 +37,7 @@ class EditIdea extends Component
             'category_id' => $this->category,
             'description' => $this->description,
         ]);
-        $this->emit('ideaWasUpdated');
+        $this->emit('ideaWasUpdated','idea updated successfully !');
     }
 
     public function render()
