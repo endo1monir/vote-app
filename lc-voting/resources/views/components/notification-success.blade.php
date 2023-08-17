@@ -27,6 +27,9 @@
             window.livewire.on('MarkedAsNotSpam', (message) => {
                showNotification(message)
             })
+            window.livewire.on('commentAdded',(message)=>{
+               showNotification(message)
+            })
             @endif
         "
         x-show="isOpen"
