@@ -30,6 +30,15 @@
             window.livewire.on('commentAdded',(message)=>{
                showNotification(message)
             })
+             window.livewire.on('commentWasUpdated',(message)=>{
+               showNotification(message)
+            })
+            window.livewire.on('commentWasDeleted',(message)=>{
+               showNotification(message)
+            })
+              window.livewire.on('commentWasMarkedAsSpam',(message)=>{
+               showNotification(message)
+            })
             @endif
         "
         x-show="isOpen"

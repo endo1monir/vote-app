@@ -1,5 +1,6 @@
 @props([
-    'eventToOpenModal',
+    'eventToOpenModal'=>null,
+    'LiveWireeventToOpenModal'=>null,
     'eventToCloseModal',
     'modalTitle',
     'modalDescription',
@@ -16,12 +17,22 @@
     "
     x-show="isOpen"
     @keydown.escape.window="isOpen=false"
+    @if($eventToOpenModal)
     {{'@'.$eventToOpenModal}}.window="isOpen=true
    $nextTick(()=>$refs.confirmButton.focus())
     "
+    @endif
     x-init="window.livewire.on('{{$eventToCloseModal}}',()=>{
     isOpen=false
-    })"
+    })
+
+    @if($LiveWireeventToOpenModal)
+    window.livewire.on('{{$LiveWireeventToOpenModal}}',()=>{
+    isOpen=true
+   $nextTick(()=>$refs.confirmButton.focus())
+    })
+@endif
+    "
     class="relative z-10" aria-labelledby="modal-title" role="dialog" aria-modal="true">
     <!--
       Background backdrop, show/hide based on modal state.
@@ -60,10 +71,11 @@
                             </svg>
                         </div>
                         <div class="mt-3 text-center sm:ml-4 sm:mt-0 sm:text-left">
-                            <h3 class="text-base font-semibold leading-6 text-gray-900" id="modal-title">{{$modalTitle}}</h3>
+                            <h3 class="text-base font-semibold leading-6 text-gray-900"
+                                id="modal-title">{{$modalTitle}}</h3>
                             <div class="mt-2">
                                 <p class="text-sm text-gray-500">
-                                   {{$modalDescription}}
+                                    {{$modalDescription}}
                                 </p>
                             </div>
                         </div>
