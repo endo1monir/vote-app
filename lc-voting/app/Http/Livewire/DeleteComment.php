@@ -7,7 +7,7 @@ use Livewire\Component;
 
 class DeleteComment extends Component
 {
-    public Comment $comment;
+    public ?Comment $comment;
     protected $listeners = ['setDeleteComment'];
 
     public function setDeleteComment($commentId)
@@ -18,8 +18,9 @@ class DeleteComment extends Component
 
     public function deleteComment()
     {
-        if (auth()->user()->can('delete',$this->comment)):
+        if (auth()->user()->can('delete', $this->comment)):
             Comment::destroy($this->comment->id);
+        $this->comment = null;
             $this->emit('commentWasDeleted', 'Comment deleted successfully !');
         endif;
     }

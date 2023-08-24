@@ -50,6 +50,10 @@
                                 Livewire.emit('setMarkAsSpamComment',{{$comment->id}})" @c href="#"
                                        class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark
                                         as Spam</a></li>
+                                    <li><a @click="isOpen=false
+                                Livewire.emit('setMarkAsNotSpamComment',{{$comment->id}})" @c href="#"
+                                           class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark
+                                            as Not Spam</a></li>
 
                                     @can('delete',$comment)
                                 <li><a href="#" @click="Livewire.emit('setDeleteComment',{{$comment->id}})"
