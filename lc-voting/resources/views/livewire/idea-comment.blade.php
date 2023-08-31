@@ -1,10 +1,13 @@
-<div class="comment-container relative bg-white rounded-xl flex mt-4">
+<div class="comment-container @if($comment->is_status_update) is-status-update  {{ 'status'.Str::kebab($comment->status->name) }} @endif  relative bg-white rounded-xl flex mt-4">
     <div class="flex flex-1 px-4 py-6">
         <div class="flex-none">
             <a href="#">
                 <img src="{{$comment->user->getAvatar()}}" alt="avatar"
                      class="w-14 h-14 rounded-xl">
             </a>
+            @if($comment->user->isAdmin())
+                <div class="text-center uppercase text-blue text-xxs font-bold mt-1">Admin</div>
+            @endif
         </div>
         <div class="w-full mx-4">
             {{-- <h4 class="text-xl font-semibold">
@@ -16,12 +19,19 @@
                     <p class="text-red"> Spam count : {{$comment->spam_reports}} </p>
                 @endif
                 @endadmin
-                {{$comment->body}}
+                @if($comment->is_status_update)
+                    <h4 class="text-xl font-semibold mb-3">
+                        status changed to " {{ $comment->status->name  }} "
+                    </h4>
+                @endif
+                <div> {{$comment->body}}</div>
+
             </div>
 
             <div class="flex items-center justify-between mt-6">
                 <div class="flex items-center text-xs text-gray-400 font-semibold space-x-2">
-                    <div class="font-bold text-gray-900">{{$comment->user->name}}</div>
+                    <div
+                        class="@if($comment->is_status_update) text-blue @endif font-bold text-gray-900">{{$comment->user->name}}</div>
                     <div>&bull;</div>
                     @if($comment->user_id === $ideaUserId)
                         <div class="rounded-full border bg-gray-100 px-3 py-1">OP</div>
@@ -50,16 +60,16 @@
                                 Livewire.emit('setMarkAsSpamComment',{{$comment->id}})" @c href="#"
                                        class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark
                                         as Spam</a></li>
-                                    <li><a @click="isOpen=false
+                                <li><a @click="isOpen=false
                                 Livewire.emit('setMarkAsNotSpamComment',{{$comment->id}})" @c href="#"
-                                           class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark
-                                            as Not Spam</a></li>
+                                       class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Mark
+                                        as Not Spam</a></li>
 
-                                    @can('delete',$comment)
-                                <li><a href="#" @click="Livewire.emit('setDeleteComment',{{$comment->id}})"
-                                       class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete
-                                        Comment</a></li>
-                                    @endcan
+                                @can('delete',$comment)
+                                    <li><a href="#" @click="Livewire.emit('setDeleteComment',{{$comment->id}})"
+                                           class="hover:bg-gray-100 block transition duration-150 ease-in px-5 py-3">Delete
+                                            Comment</a></li>
+                                @endcan
                             </ul>
                         </button>
                     </div>
