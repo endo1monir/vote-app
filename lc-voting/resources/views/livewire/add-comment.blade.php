@@ -10,7 +10,7 @@ const allComments=document.querySelectorAll('.comment-container')
 const firstComment = allComments[0]
 firstComment.scrollIntoView({behavior:'smooth'})
               }
-             if (message.updateQueue[0].payload.event === 'commentAdded' && message.component.fingerprint.name === 'idea-comments'){
+             if (message.updateQueue[0].payload.event === 'commentAdded' || message.updateQueue[0].payload.event === 'statusWasUpdated' && message.component.fingerprint.name === 'idea-comments'){
              const allComments=document.querySelectorAll('.comment-container')
 const lastComment = allComments[allComments.length-1]
 console.log(lastComment)

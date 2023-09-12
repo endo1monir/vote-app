@@ -26,6 +26,7 @@ class AddComment extends Component
             [
                 'idea_id'=>$this->idea->id,
                 'user_id'=>auth()->id(),
+                'status_id'=>1,
                 'body'=>$this->comment
             ]
         );

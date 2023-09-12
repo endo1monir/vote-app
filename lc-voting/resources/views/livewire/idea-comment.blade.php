@@ -1,4 +1,4 @@
-<div class="comment-container @if($comment->is_status_update) is-status-update  {{ 'status'.Str::kebab($comment->status->name) }} @endif  relative bg-white rounded-xl flex mt-4">
+<div class="comment-container @if($comment->is_status_update) is-status-update  {{ 'status-'.Str::kebab($comment->status->name) }} @endif  relative bg-white rounded-xl flex mt-4">
     <div class="flex flex-1 px-4 py-6">
         <div class="flex-none">
             <a href="#">

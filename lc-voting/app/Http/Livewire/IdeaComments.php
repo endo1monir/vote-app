@@ -12,9 +12,14 @@ class IdeaComments extends Component
     use WithPagination;
 
     public $idea;
-    protected $listeners = ['commentAdded','commentWasDeleted'];
+    protected $listeners = ['commentAdded','commentWasDeleted','statusWasUpdated'];
 
     public function commentAdded()
+    {
+        $this->idea->refresh();
+        $this->gotoPage($this->idea->comments()->paginate()->lastPage());
+    }
+    public function statusWasUpdated()
     {
         $this->idea->refresh();
         $this->gotoPage($this->idea->comments()->paginate()->lastPage());
@@ -36,7 +41,7 @@ class IdeaComments extends Component
     {
         return view('livewire.idea-comments'
             , ['comments' =>
-                Comment::with('user')->where('idea_id', $this->idea->id)->paginate()->withQueryString()
+                Comment::with(['user','status'])->where('idea_id', $this->idea->id)->paginate()->withQueryString()
 //                $this->idea->comments()->paginate()
             ]
         );
